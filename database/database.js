@@ -12,3 +12,25 @@ const pool = mysql.createPool({
 });
 
 module.exports = pool;
+
+// const { Sequelize } = require("sequelize");
+// const dbconfig = require("../config/config.json");
+
+// const sequelize = new Sequelize(
+//   dbconfig.database,
+//   dbconfig.user,
+//   dbconfig.password,
+//   {
+//     host: dbconfig.host,
+//     dialect: "mysql",
+//     pool: {
+//       max: 50,
+//       min: 0,
+//       acquire: 30000,
+//       idle: 10000,
+//     },
+//     logging: false,
+//   }
+// );
+
+// module.exports = sequelize;

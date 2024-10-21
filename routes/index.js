@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
 });
 
 // API 라우트
-router.post("/", userController.createUser);
+router.post("/api", userController.createUser);
 
 router.get("/api/users", userController.getAllUsers);
 

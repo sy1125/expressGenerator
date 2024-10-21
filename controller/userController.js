@@ -1,5 +1,35 @@
 const pool = require("../database/database.js");
+const { User } = require("../models");
 
+// exports.createUser = async (req, res) => {
+//   console.log("POST /users 요청 받음");
+//   console.log("요청 본문:", req.body);
+
+//   const { name, email, age } = req.body;
+
+//   if (!name || !email) {
+//     console.log("유효성 검사 실패: 필수 필드 누락");
+//     return res
+//       .status(400)
+//       .json({ error: "이름과 이메일은 필수 입력 항목입니다." });
+//   }
+
+//   const query = "INSERT INTO users (name, email, age) VALUES (?, ?, ?)";
+
+//   try {
+//     console.log("데이터베이스 쿼리 실행:", { name, email, age });
+//     const [results] = await pool.query(query, [name, email, age]);
+//     console.log("사용자 생성 성공:", results);
+
+//     res.status(201).json({
+//       id: results.insertId,
+//       message: "사용자가 생성되었습니다.",
+//     });
+//   } catch (err) {
+//     console.error("데이터베이스 오류:", err);
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 exports.createUser = async (req, res) => {
   console.log("POST /users 요청 받음");
   console.log("요청 본문:", req.body);
@@ -13,15 +43,13 @@ exports.createUser = async (req, res) => {
       .json({ error: "이름과 이메일은 필수 입력 항목입니다." });
   }
 
-  const query = "INSERT INTO users (name, email, age) VALUES (?, ?, ?)";
-
   try {
-    console.log("데이터베이스 쿼리 실행:", { name, email, age });
-    const [results] = await pool.query(query, [name, email, age]);
-    console.log("사용자 생성 성공:", results);
+    console.log("사용자 생성 시도:", { name, email, age });
+    const newUser = await User.create({ name, email, age });
+    console.log("사용자 생성 성공:", newUser);
 
     res.status(201).json({
-      id: results.insertId,
+      id: newUser.id,
       message: "사용자가 생성되었습니다.",
     });
   } catch (err) {

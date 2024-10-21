@@ -8,7 +8,6 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var methodOverride = require("method-override");
 const { swaggerUi, specs } = require("./swagger/swagger");
-
 var app = express();
 
 // view engine setup
@@ -27,8 +26,13 @@ app.use("/user", usersRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
+
+app.use((req, res, next) => {
+  console.log(`404 에러 발생 - 요청 경로: ${req.path}`);
+  res.status(404).json({ error: "Not Found" });
 });
 
 // error handler
